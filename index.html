@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>भटभटे - Vehicle Rental Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40' viewBox='0 0 120 40'%3E%3Crect fill='%23FF6B00' width='120' height='40' rx='5'/%3E%3Ctext x='60' y='28' font-family='Arial, sans-serif' font-size='20' font-weight='bold' fill='white' text-anchor='middle'%3E%E0%A4%AD%E0%A4%9F%E0%A4%AD%E0%A4%9F%E0%A5%87%3C/text%3E%3C/svg%3E" alt="भटभटे">
+            </a>
+            
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="vehicles.html">Browse Vehicles</a></li>
+                <li id="myBookingsLink" style="display: none;"><a href="my-bookings.html">My Bookings</a></li>
+                
+                <li id="loginBtn"><a href="login.html" class="btn btn-outline">Login</a></li>
+                <li id="registerBtn"><a href="register.html" class="btn btn-primary">Sign Up</a></li>
+                
+                <li id="userInfo" style="display: none;">
+                    <span id="userName"></span>
+                    <button onclick="logout()" class="btn btn-secondary">Logout</button>
+                </li>
+            </ul>
+            
+            <button class="navbar-toggle" id="navbarToggle">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find Your Perfect Ride</h1>
+            <p>Rent cars, bikes, and more across Nepal</p>
+            
+            <form class="search-bar" onsubmit="handleSearch(event)">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    class="search-input" 
+                    placeholder="Search by location, vehicle type, or name..."
+                >
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalVehicles">50+</div>
+                    <div class="stat-label">Vehicles Available</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Locations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Vehicles -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Vehicles</h2>
+            <p class="section-subtitle">Choose from our wide range of rental options</p>
+            
+            <div class="grid grid-cols-4" id="featuredVehicles">
+                <div class="spinner"></div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="vehicles.html" class="btn btn-primary">View All Vehicles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section bg-gray">
+        <div class="container">
+            <h2 class="section-title">Why Choose भटभटे?</h2>
+            <p class="section-subtitle">Nepal's most trusted vehicle rental platform</p>
+            
+            <div class="grid grid-cols-3">
+                <div class="text-center">
+                    <div style="width: 64px; height: 64px; background-color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                        🚗
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Wide Selection</h3>
+                    <p style="color: var(--gray-600);">Choose from cars, bikes, scooters, and more across all major cities in Nepal</p>
+                </div>
+                
+                <div class="text-center">
+                    <div style="width: 64px; height: 64px; background-color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                        ₨
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Best Prices</h3>
+                    <p style="color: var(--gray-600);">Competitive rates with no hidden fees and flexible payment options</p>
+                </div>
+                
+                <div class="text-center">
+                    <div style="width: 64px; height: 64px; background-color: var(--primary-orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                        🕐
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">24/7 Support</h3>
+                    <p style="color: var(--gray-600);">Round-the-clock customer service to assist you anytime, anywhere</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Rent a vehicle in just 3 simple steps</p>
+            
+            <div class="grid grid-cols-3">
+                <div class="text-center">
+                    <div style="width: 80px; height: 80px; background-color: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; font-weight: bold;">
+                        1
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Search & Select</h3>
+                    <p style="color: var(--gray-600);">Browse our wide selection of vehicles and filter by location, type, and price range</p>
+                </div>
+                
+                <div class="text-center">
+                    <div style="width: 80px; height: 80px; background-color: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; font-weight: bold;">
+                        2
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Book & Pay</h3>
+                    <p style="color: var(--gray-600);">Choose your rental dates and complete payment using Cash, eSewa, Khalti, or Card</p>
+                </div>
+                
+                <div class="text-center">
+                    <div style="width: 80px; height: 80px; background-color: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; font-weight: bold;">
+                        3
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Pick Up & Drive</h3>
+                    <p style="color: var(--gray-600);">Collect your vehicle from the pickup location and enjoy your journey safely</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="hero">
+        <div class="container text-center">
+            <h2 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">Ready to Hit the Road?</h2>
+            <p style="font-size: 1.25rem; color: var(--gray-300); margin-bottom: 2rem;">Join thousands of satisfied customers and book your vehicle today</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="vehicles.html" class="btn btn-primary" style="padding: 1rem 2rem;">Browse All Vehicles</a>
+                <a href="register.html" class="btn btn-outline" style="padding: 1rem 2rem; background-color: white; color: var(--deep-charcoal);">Sign Up Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='35' viewBox='0 0 100 35'%3E%3Crect fill='%23FF6B00' width='100' height='35' rx='5'/%3E%3Ctext x='50' y='24' font-family='Arial, sans-serif' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3E%E0%A4%AD%E0%A4%9F%E0%A4%AD%E0%A4%9F%E0%A5%87%3C/text%3E%3C/svg%3E" alt="भटभटे" style="margin-bottom: 1rem;">
+                    <p style="color: var(--gray-400); font-size: 0.875rem;">Your trusted partner for vehicle rentals across Nepal.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="vehicles.html">Browse Vehicles</a></li>
+                        <li><a href="my-bookings.html">My Bookings</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email: info@bhatbhatey.com</li>
+                        <li>Phone: +977 123-456-789</li>
+                        <li>Location: Kathmandu, Nepal</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 भटभटे - Vehicle Rentals. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="js/main.js"></script>
+    <script>
+        // Handle Search
+        function handleSearch(event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById('searchInput').value;
+            window.location.href = `vehicles.html?search=${encodeURIComponent(searchQuery)}`;
+        }
+        
+        // Load Featured Vehicles
+        async function loadFeaturedVehicles() {
+            try {
+                const response = await fetch(`${app.API_URL}/vehicles.php`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const vehicles = data.data.filter(v => v.availability == 1).slice(0, 4);
+                    displayFeaturedVehicles(vehicles);
+                    document.getElementById('totalVehicles').textContent = data.data.length + '+';
+                }
+            } catch (error) {
+                console.error('Error loading vehicles:', error);
+            }
+        }
+        
+        function displayFeaturedVehicles(vehicles) {
+            const container = document.getElementById('featuredVehicles');
+            
+            if (vehicles.length === 0) {
+                container.innerHTML = '<p class="text-center">No vehicles available</p>';
+                return;
+            }
+            
+            container.innerHTML = vehicles.map(vehicle => `
+                <div class="card">
+                    <img src="${vehicle.image_url}" alt="${vehicle.name}" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">${vehicle.name}</h3>
+                        <p class="card-text">📍 ${vehicle.location}</p>
+                        ${vehicle.rating ? `
+                            <p class="card-text">⭐ ${parseFloat(vehicle.rating).toFixed(1)} (${vehicle.review_count} reviews)</p>
+                        ` : ''}
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <span style="font-size: 1.5rem; font-weight: bold; color: var(--primary-orange);">NPR ${vehicle.price_per_day}</span>
+                                <span style="font-size: 0.875rem; color: var(--gray-600);">/day</span>
+                            </div>
+                            <a href="vehicle-detail.html?id=${vehicle.id}" class="btn btn-primary">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Initialize
+        loadFeaturedVehicles();
+    </script>
+</body>
+</html>

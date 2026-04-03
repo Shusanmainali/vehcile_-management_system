@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - भटभटे</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div
+        style="min-height: 100vh; background: linear-gradient(to bottom right, var(--deep-charcoal), var(--charcoal-light)); display: flex; align-items: center; justify-content: center; padding: 2rem;">
+        <div style="width: 100%; max-width: 400px;">
+            <div class="text-center mb-4">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='50' viewBox='0 0 150 50'%3E%3Crect fill='%23FF6B00' width='150' height='50' rx='5'/%3E%3Ctext x='75' y='34' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3E%E0%A4%AD%E0%A4%9F%E0%A4%AD%E0%A4%9F%E0%A5%87%3C/text%3E%3C/svg%3E"
+                    alt="भटभटे" style="margin: 0 auto 1rem;">
+                <p style="color: var(--gray-300);">Create your account to start renting vehicles.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center mb-3">Register</h2>
+
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="Full Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="password" class="form-input" placeholder="••••••••" minlength="6"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" id="confirmPassword" class="form-input" placeholder="••••••••"
+                                required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Create Account
+                        </button>
+                    </form>
+
+                    <div class="mt-3 text-center">
+                        <p style="font-size: 0.875rem; color: var(--gray-600);">
+                            Already have an account?
+                            <a href="login.html" style="color: var(--primary-orange); font-weight: 500;">Login here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        async function handleRegister(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                app.showAlert('Passwords do not match', 'error');
+                return;
+            }
+
+            // Validate password length
+            if (password.length < 6) {
+                app.showAlert('Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`api/auth.php?action=register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const text = await response.text();
+
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error("Invalid JSON:", text);
+                    throw new Error("Server returned invalid JSON");
+                }
+
+                if (data.success) {
+                    app.showAlert('Registration successful! Welcome to भटभटे!', 'success');
+
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    app.showAlert(data.message, 'error');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                app.showAlert('Registration failed. Please try again.', 'error');
+            }
+        }
+    </script>
+</body>
+
+</html>
